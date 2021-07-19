@@ -1,7 +1,6 @@
 <template>
   <div>
     <div class="container main-content mb-3">
-      <Loading :active.sync="isLoading"></Loading>
       <div class="row">
         <div class="col-md-3">
           <!-- 左側選單 (List group) -->
@@ -96,12 +95,12 @@ export default {
     getProducts() {
       const vm = this;
       const url = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/products/all`;
-      vm.isLoading = true;
+      vm.$store.state.isLoading = true;
       this.$http.get(url).then((response) => {
         vm.products = response.data.products;
         console.log('取得產品列表:', response);
         vm.getUnique();
-        vm.isLoading = false;
+        vm.$store.state.isLoading = false;
       });
     },
     addtoCart(id, qty = 1) {
