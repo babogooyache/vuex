@@ -95,12 +95,12 @@ export default {
     getProducts() {
       const vm = this;
       const url = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/products/all`;
-      vm.$store.state.isLoading = true;
+      vm.$store.dispatch('updateLoading', true);
       this.$http.get(url).then((response) => {
         vm.products = response.data.products;
         console.log('取得產品列表:', response);
         vm.getUnique();
-        vm.$store.state.isLoading = false;
+        vm.$store.dispatch('updateLoading', false);
       });
     },
     addtoCart(id, qty = 1) {
@@ -111,7 +111,7 @@ export default {
         product_id: id,
         qty,
       };
-      vm.isLoading = true;
+      vm.$store.dispatch('updateLoading', true);
       this.$http.post(url, { data: item }).then((response) => {
         vm.isLoading = false;
         console.log('加入購物車:', response);
