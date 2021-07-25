@@ -73,9 +73,7 @@ export default {
   name: 'Home',
   data() {
     return {
-      products: [],
       searchText: '',
-      categories: [],
       isLoading: false,
     };
   },
@@ -90,18 +88,16 @@ export default {
       }
       return this.products;
     },
+    products() {
+      return this.$store.state.products;
+    },
+    categories() {
+      return this.$store.state.categories;
+    },
   },
   methods: {
     getProducts() {
-      const vm = this;
-      const url = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/products/all`;
-      vm.$store.dispatch('updateLoading', true);
-      this.$http.get(url).then((response) => {
-        vm.products = response.data.products;
-        console.log('取得產品列表:', response);
-        vm.getUnique();
-        vm.$store.dispatch('updateLoading', false);
-      });
+      this.$store.dispatch('getProducts');
     },
     addtoCart(id, qty = 1) {
       const vm = this;
