@@ -49,6 +49,7 @@ export default new Vuex.Store({
         console.log('刪除購物車項目', response);
       });
     },
+    // 傳送參數進入actions時，一次只能傳遞一個參數，所以用物件型式取出
     addtoCart(context, { id, qty }) {
       const url = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/cart`;
       context.commit('LOADING', true);
