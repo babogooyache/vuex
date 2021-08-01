@@ -69,6 +69,8 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
+
 export default {
   name: 'Home',
   data() {
@@ -88,28 +90,14 @@ export default {
       }
       return this.products;
     },
-    products() {
-      return this.$store.state.products;
-    },
-    categories() {
-      return this.$store.state.categories;
-    },
+    // 把computed替換成getters使用
+    ...mapGetters(['products', 'categories']),
   },
   methods: {
-    getProducts() {
-      this.$store.dispatch('getProducts');
-    },
     addtoCart(id, qty = 1) {
       this.$store.dispatch('addtoCart', { id, qty });
     },
-    getUnique() {
-      const vm = this;
-      const categories = new Set();
-      vm.products.forEach((item) => {
-        categories.add(item.category);
-      });
-      vm.categories = Array.from(categories);
-    },
+    ...mapActions(['getProducts']),
   },
   created() {
     this.getProducts();

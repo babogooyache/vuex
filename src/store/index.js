@@ -87,4 +87,13 @@ export default new Vuex.Store({
       state.cart = payload;
     },
   },
+  getters: {
+    // 把要呈現在畫面上的computed移到這
+    products(state) {
+      return state.products;
+    },
+    categories(state) {
+      return state.categories;
+    },
+  },
 });
